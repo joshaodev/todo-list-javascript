@@ -1,0 +1,108 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: "Icons";
+    src: url("./Fonts/byom_icons.ttf");
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    background: #000000;
+    color: #ffffff;
+    /**color: #085c3c;**/
+}
+
+.app-container {
+    width: 600px;
+    margin: 0 auto;
+    padding: 50px 0;
+}
+
+.app-container .title {
+    background: #04642c;
+    padding: 15px 0;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.app-container .input-task {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #252525;
+    margin-bottom: 40px;
+}
+
+.app-container .input-task input {
+    width: 500px;
+    height: 40px;
+    margin-right: 10px;
+
+    font-size: 0.9rem;
+    color: #777777;
+
+    background: transparent;
+    border: none;
+    outline: none; /* Remove a a borda externa padrão do elemento */
+}
+
+.app-container .input-task span {
+    font-family: "Icons";
+    text-align: center;
+    
+    background: #1ddb6c;
+    
+    width: 20px;
+    height: 20px;
+    padding: 1px 0 5px 1px;
+    border-radius: 5px;
+    
+}
+
+
+.app-container .tasks {
+    list-style: none;
+}
+
+.app-container .tasks .task {
+    background-color: #222222;
+    padding: 10px 40px;
+
+    display: flex;
+    justify-content: space-between;
+    /*align-items: center;*/
+}
+
+
+.app-container .tasks .task li {
+    transition: all 600ms ease;
+}
+
+
+/* class for task when check icon is pressed - added by javascript */
+.task-checked {
+    color: #777777;
+    text-decoration: line-through;
+}
+
+
+.app-container .tasks .task .task-manager {
+    color: #000000;
+}
+
+.app-container .tasks .task .task-manager span{
+    font-family: "Icons";
+    color: #ffffff;
+    margin: 0 10px;
+    transition: all 300ms ease;
+}
+
+.app-container .tasks .task .task-manager span:hover{
+    color: #04642c;
+    cursor: pointer;
+}
