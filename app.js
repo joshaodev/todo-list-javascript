@@ -1,13 +1,25 @@
 'use strict'
 
 /* Banco de dados */
-let bancoDados = [
+/*let bancoDados = [
     { 'tarefa': 'Aprender DEsign Gráfico', 'status': '' },
     { 'tarefa': 'Aprender Web dev', 'status': 'task-checked' }
-]
+]*/
 
-/* Usando o localstorage (armazenar os dados localmente no Browser) para guardar o BD */
+/* Usando o localstorage (armazenar os dados localmente no Browser) 
+    setBancoDados -> Define os dados no localstore
+    getBancoDados -> Captura os dados do localstore
+*/
 
+const setBancoDados = (bancoDados) => {
+    localStorage.setItem('listaTarefas', JSON.stringify(bancoDados));
+}
+
+const getBancoDados = () => {
+    return localStorage.getItem('listaTarefas') ? JSON.parse(localStorage.getItem('listaTarefas')) : [];
+}
+
+/* Método para criar uma tarefa (elemento) no HTML */
 const criarItem = (tarefa, status = '', indice) => {
     const item = document.createElement('div');
     item.classList.add('task');
@@ -32,52 +44,59 @@ const limparTarefas = () => {
     }
 }
 
-/* Procura cada dados do banco e adiciona na tela, mas antes limpa os dados
+/* Procura cada dados do "banco" e adiciona na tela, mas antes limpa os dados
     que estavam renderizados na tela.
  */
 const actualizarTela = () => {
     limparTarefas();
-    bancoDados.forEach((item, indice) => criarItem(item.tarefa, item.status, indice));
+    const bancoDados = getBancoDados();
+    bancoDados.forEach((item, indice) => {
+        criarItem(item.tarefa, item.status, indice);
+    });
 }
 
-
+/* Captura o dado da caixa de texto, e adiciona ao banco de dados.  */
 const inserirTarefa = (evento) => {
     const texto = evento.target.value
     const tecla = evento.key;
     if (tecla == 'Enter') {
-        bancoDados.push({ 'tarefa': texto, 'status': '' })
+        const bancoDados = getBancoDados();
+        bancoDados.push({ 'tarefa': texto, 'status': '' }) /* Define a estrutura a armazenar -> {'tarefa':'tarefa', 'status':'status'} */
+        setBancoDados(bancoDados);
         evento.target.value = ''
         actualizarTela();
     }
 }
 
+/* Actualiza o estado checkado da tarefa, e modifica no banco de dados */
 const checarItem = (indice) => {
+    const bancoDados = getBancoDados();
     bancoDados[indice].status = bancoDados[indice].status == '' ? 'task-checked' : '';
-
+    setBancoDados(bancoDados);
 }
 
+/* Remove a tarefa do banco de dados */
 const removerItem = (indice) => {
+    const bancoDados = getBancoDados()
     bancoDados.splice(indice, 1);
+    setBancoDados(bancoDados)
 }
 
+/* Verifica qual elemento(através da sua classe) da tarefa foi clicado */
 const clickItem = (evento) => {
     const elemento = evento.target;
-    console.log(elemento.type);
-    console.log(elemento.classList.value);
-    //if (elemento.type  === 'span') {
-    console.log('true')
     const indice = elemento.dataset.indice;
     if (elemento.classList.value == 'check') {
         checarItem(indice);
     }
     else if (elemento.classList.value == 'del') {
-        console.log('true')
         removerItem(indice);
     }
     actualizarTela();
-    //}
 }
 
+
+/* Funções(chamadas a cada actualização do browser) e Listeners */
 actualizarTela();
 document.getElementById('newTask').addEventListener('keypress', inserirTarefa);
 document.getElementById('taskContainer').addEventListener('click', clickItem);

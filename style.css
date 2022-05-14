@@ -13,13 +13,14 @@ body {
     font-family: "Roboto", sans-serif;
     background: #000000;
     color: #ffffff;
-    /**color: #085c3c;**/
 }
 
 .app-container {
     width: 600px;
     margin: 0 auto;
     padding: 50px 0;
+
+    user-select: none;
 }
 
 .app-container .title {
@@ -39,30 +40,25 @@ body {
 }
 
 .app-container .input-task input {
-    width: 500px;
+    width: 475px;
     height: 40px;
-    margin-right: 10px;
+    margin-left: 10px;
 
+    font-style: italic;
     font-size: 0.9rem;
     color: #777777;
 
     background: transparent;
     border: none;
-    outline: none; /* Remove a a borda externa padrão do elemento */
+    outline: none; /* Remove a borda externa padrão do elemento */
 }
 
 .app-container .input-task span {
     font-family: "Icons";
+    font-size: 1.2rem;
     text-align: center;
     
-    background: #444444;
-    color: #000000;
-    
-    width: 20px;
-    height: 20px;
-    padding: 1px 0 5px 1px;
-    border-radius: 5px;
-    
+    color: #555555;
 }
 
 .app-container .tasks {
@@ -76,11 +72,14 @@ body {
 
     display: flex;
     justify-content: space-between;
+    align-items: center;
     /*align-items: center;*/
 }
 
 
 .app-container .tasks .task li {
+    inline-size: 430px; /* Define o limite de apresentação do texto. */
+    overflow-wrap: break-word; /* Permite a quebra de linha, quando o texto passa o seu limite. */
     transition: all 600ms ease;
 }
 
